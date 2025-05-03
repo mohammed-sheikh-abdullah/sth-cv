@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
 
-const Navbar = () => {
+const Navbar = ({ currentPage, setCurrentPage }) => {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  const handleNavigation = (page) => {
+    setCurrentPage(page);
+    setIsMenuOpen(false);
+  };
   
   return (
     <nav className="navbar">
@@ -16,24 +20,36 @@ const Navbar = () => {
         
         <ul className="navbar-nav">
           <li>
-            <NavLink to="/" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+            <button 
+              className={`nav-link ${currentPage === 'about' ? 'active' : ''}`}
+              onClick={() => handleNavigation('about')}
+            >
               {t('nav.about')}
-            </NavLink>
+            </button>
           </li>
           <li>
-            <NavLink to="/projects" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+            <button 
+              className={`nav-link ${currentPage === 'projects' ? 'active' : ''}`}
+              onClick={() => handleNavigation('projects')}
+            >
               {t('nav.projects')}
-            </NavLink>
+            </button>
           </li>
           <li>
-            <NavLink to="/trainings" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+            <button 
+              className={`nav-link ${currentPage === 'trainings' ? 'active' : ''}`}
+              onClick={() => handleNavigation('trainings')}
+            >
               {t('nav.trainings')}
-            </NavLink>
+            </button>
           </li>
           <li>
-            <NavLink to="/contact" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+            <button 
+              className={`nav-link ${currentPage === 'contact' ? 'active' : ''}`}
+              onClick={() => handleNavigation('contact')}
+            >
               {t('nav.contact')}
-            </NavLink>
+            </button>
           </li>
         </ul>
         
@@ -52,34 +68,30 @@ const Navbar = () => {
       
       {isMenuOpen && (
         <div className="navbar-mobile-menu open container">
-          <NavLink 
-            to="/" 
-            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} 
-            onClick={() => setIsMenuOpen(false)}
+          <button 
+            className={`nav-link ${currentPage === 'about' ? 'active' : ''}`}
+            onClick={() => handleNavigation('about')}
           >
             {t('nav.about')}
-          </NavLink>
-          <NavLink 
-            to="/projects" 
-            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} 
-            onClick={() => setIsMenuOpen(false)}
+          </button>
+          <button 
+            className={`nav-link ${currentPage === 'projects' ? 'active' : ''}`}
+            onClick={() => handleNavigation('projects')}
           >
             {t('nav.projects')}
-          </NavLink>
-          <NavLink 
-            to="/trainings" 
-            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} 
-            onClick={() => setIsMenuOpen(false)}
+          </button>
+          <button 
+            className={`nav-link ${currentPage === 'trainings' ? 'active' : ''}`}
+            onClick={() => handleNavigation('trainings')}
           >
             {t('nav.trainings')}
-          </NavLink>
-          <NavLink 
-            to="/contact" 
-            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} 
-            onClick={() => setIsMenuOpen(false)}
+          </button>
+          <button 
+            className={`nav-link ${currentPage === 'contact' ? 'active' : ''}`}
+            onClick={() => handleNavigation('contact')}
           >
             {t('nav.contact')}
-          </NavLink>
+          </button>
           
           <div className="language-switcher mobile">
             <LanguageSwitcher />

@@ -7,6 +7,7 @@ import Contact from './pages/Contact';
 import ErrorPage from './pages/ErrorPage';
 
 export const router = createBrowserRouter([
+  
   {
     path: '/',
     element: <Layout />,
