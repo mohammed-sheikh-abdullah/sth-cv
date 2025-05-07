@@ -1,103 +1,44 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
+import { Link, useLocation } from 'react-router-dom';
 
-const Navbar = ({ currentPage, setCurrentPage }) => {
+const Navbar = () => {
   const { t } = useTranslation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  const handleNavigation = (page) => {
-    setCurrentPage(page);
-    setIsMenuOpen(false);
-  };
-  
+  const location = useLocation();
+
   return (
     <nav className="navbar">
       <div className="navbar-container container">
         <div className="navbar-title">
           {t('site.title')}
         </div>
-        
         <ul className="navbar-nav">
           <li>
-            <button 
-              className={`nav-link ${currentPage === 'about' ? 'active' : ''}`}
-              onClick={() => handleNavigation('about')}
-            >
+            <Link className={`nav-link${location.pathname === '/' ? ' active' : ''}`} to="/">
               {t('nav.about')}
-            </button>
+            </Link>
           </li>
           <li>
-            <button 
-              className={`nav-link ${currentPage === 'projects' ? 'active' : ''}`}
-              onClick={() => handleNavigation('projects')}
-            >
+            <Link className={`nav-link${location.pathname === '/projects' ? ' active' : ''}`} to="/projects">
               {t('nav.projects')}
-            </button>
+            </Link>
           </li>
           <li>
-            <button 
-              className={`nav-link ${currentPage === 'trainings' ? 'active' : ''}`}
-              onClick={() => handleNavigation('trainings')}
-            >
+            <Link className={`nav-link${location.pathname === '/trainings' ? ' active' : ''}`} to="/trainings">
               {t('nav.trainings')}
-            </button>
+            </Link>
           </li>
           <li>
-            <button 
-              className={`nav-link ${currentPage === 'contact' ? 'active' : ''}`}
-              onClick={() => handleNavigation('contact')}
-            >
+            <Link className={`nav-link${location.pathname === '/contact' ? ' active' : ''}`} to="/contact">
               {t('nav.contact')}
-            </button>
+            </Link>
           </li>
         </ul>
-        
         <div className="navbar-right">
           <LanguageSwitcher />
-          
-          <button 
-            className="navbar-mobile-toggle"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? '✕' : '☰'}
-          </button>
         </div>
       </div>
-      
-      {isMenuOpen && (
-        <div className="navbar-mobile-menu open container">
-          <button 
-            className={`nav-link ${currentPage === 'about' ? 'active' : ''}`}
-            onClick={() => handleNavigation('about')}
-          >
-            {t('nav.about')}
-          </button>
-          <button 
-            className={`nav-link ${currentPage === 'projects' ? 'active' : ''}`}
-            onClick={() => handleNavigation('projects')}
-          >
-            {t('nav.projects')}
-          </button>
-          <button 
-            className={`nav-link ${currentPage === 'trainings' ? 'active' : ''}`}
-            onClick={() => handleNavigation('trainings')}
-          >
-            {t('nav.trainings')}
-          </button>
-          <button 
-            className={`nav-link ${currentPage === 'contact' ? 'active' : ''}`}
-            onClick={() => handleNavigation('contact')}
-          >
-            {t('nav.contact')}
-          </button>
-          
-          <div className="language-switcher mobile">
-            <LanguageSwitcher />
-          </div>
-        </div>
-      )}
     </nav>
   );
 };
